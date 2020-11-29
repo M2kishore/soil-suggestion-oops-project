@@ -45,7 +45,7 @@ abstract class Test {
 		
 		
 	}
-	void printResultset(ResultSet resultset) {
+	void printResultset(ResultSet resultset) {    //prints resultset
 		ResultSetMetaData metadata;
 		try {
 			metadata = resultset.getMetaData();
@@ -102,23 +102,30 @@ class DataAnalyst extends Test{
 	double p1;
 	double k1;
 	TestMachine tm;
+	DataAnalyst(){
+		
+	}
+	DataAnalyst(int id, String name){
+		this.id=id;
+		this.name=name;
+	}
 	void getResult(int sid) {
 		getnpk(sid);
 		tm = new TestMachine();
 		tm.generateResult(n1,p1,k1);
-		updateDatabase(sid);
 		
 		
 	}
-	void getnpk(int sid) {
+	private void getnpk(int sid) {
 		try {
 			statement = connection.createStatement();
 			resultset = statement.executeQuery("select n,p,k from submission where sid="+sid);
+			logger.append("N,P,K Search successful\n");
 			resultset.next();
 			n1=resultset.getDouble("n");
 			p1=resultset.getDouble("p");
 			k1=resultset.getDouble("k");
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -126,13 +133,18 @@ class DataAnalyst extends Test{
 	void sendMessage() {
 		//messaging service to send the result to the farmer
 	}
-	private void updateDatabase(int submission_id) {
+	void updateDatabase(int submission_id) {
 		try {
 			statement= connection.createStatement();
 			if(statement.execute("UPDATE submission SET status='COMPLETE' WHERE sid="+submission_id)) {
 				System.out.println("Successful");
 			}
+			logger.append("submission statue updated \n");
+			logger.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -202,8 +214,10 @@ public class TestMachine extends Test{
 	void getReferences() {
 		
 		try{
+			
 			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			resultset=statement.executeQuery("SELECT n_content,p_content,k_content FROM crop");
+			logger.append("Reference N,P,K retrieval successful...\n");
 			resultset.first();
 			do {
 				double nc=resultset.getDouble("n_content");
@@ -215,7 +229,7 @@ public class TestMachine extends Test{
 			}
 				while(resultset.next());
 		}
-		catch (SQLException e){
+		catch (SQLException | IOException e){
 			e.getStackTrace();
 		}
 	}
@@ -279,16 +293,6 @@ public class TestMachine extends Test{
 			inconsistentData();
 			nullValues();
 		}
-	}
-	
-	void checkSoil(double n,double p, double k){
-				
-	}
-	
-	public Report generateReport() {
-		Report report = new Report();
-		return report;
-		
 	}
 	
 	private void inconsistentData() {
