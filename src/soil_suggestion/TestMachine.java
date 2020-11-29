@@ -16,8 +16,8 @@ abstract class Test {
 	int c;
 	Timestamp time;
 	File tempDirectory, machineStat;
-	FileWriter logger;
-	Connection connection;
+	static FileWriter logger;
+	static Connection connection;
 	ArrayList<Double> n = new ArrayList<Double>();
 	ArrayList<Double> p = new ArrayList<Double>();
 	ArrayList<Double> k = new ArrayList<Double>();
@@ -96,12 +96,12 @@ class Report extends Test{
 class DataAnalyst extends Test{
 	int id;
 	String name;
-	Statement statement = null;
-	ResultSet resultset = null;
-	double n1;
-	double p1;
-	double k1;
-	TestMachine tm;
+	 Statement statement = null;
+	 ResultSet resultset = null;
+	 double n1;
+	 double p1;
+	 double k1;
+	 TestMachine tm;
 	DataAnalyst(){
 		
 	}
@@ -109,7 +109,7 @@ class DataAnalyst extends Test{
 		this.id=id;
 		this.name=name;
 	}
-	void getResult(int sid) {
+	public void getResult(int sid) {
 		getnpk(sid);
 		tm = new TestMachine();
 		tm.generateResult(n1,p1,k1);

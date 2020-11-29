@@ -1,11 +1,10 @@
 package soil_suggestion;
 
+import java.awt.EventQueue;
+
 public class Tester {
 	public static void main(String args[]) {
-		DataAnalyst da = new DataAnalyst();
-		da.getResult(2);
-		da.tm.getSubmission();
-		
+		new AnalyserForm();
 		
 	}
 }
