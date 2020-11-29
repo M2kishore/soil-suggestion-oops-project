@@ -140,6 +140,8 @@ class DataAnalyst extends Test{
 				System.out.println("Successful");
 			}
 			logger.append("submission statue updated \n");
+			System.out.println("Updated");
+			
 			logger.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -1,355 +1,236 @@
 package login;
 
-import javax.swing.*; 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.*;
 
-import java.awt.event.*; 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
-import java.awt.*; 
+import javafx.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
-import java.sql.*; 
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
+import javax.swing.JButton;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
  
 
-public class RegistrationForm implements ActionListener { 
-
-     
-
-    private String dates[]  
-
-            = { "1", "2", "3", "4", "5",  
-
-                "6", "7", "8", "9", "10",  
-
-                "11", "12", "13", "14", "15",  
-
-                "16", "17", "18", "19", "20",  
-
-                "21", "22", "23", "24", "25",  
-
-                "26", "27", "28", "29", "30",  
-
-                "31" };  
-
-        private String months[]  
-
-            = { "Jan", "feb", "Mar", "Apr",  
-
-                "May", "Jun", "July", "Aug",  
-
-                "Sup", "Oct", "Nov", "Dec" };  
-
-        private String years[]  
-
-            = { "1995", "1996", "1997", "1998",  
-
-                "1999", "2000", "2001", "2002",  
-
-                "2003", "2004", "2005", "2006",  
-
-                "2007", "2008", "2009", "2010",  
-
-                "2011", "2012", "2013", "2014",  
-
-                "2015", "2016", "2017", "2018",  
-
-                "2019" };  
-
- 
-
- 
-
-JFrame frame; 
-
-    String[] gender={"Male","Female"}; 
-
-    JLabel nameLabel=new JLabel("FARMER NAME"); 
-
-    JLabel genderLabel=new JLabel("GENDER"); 
-
-    JLabel IDLabel=new JLabel("FARMER ID"); 
-
-    JLabel passwordLabel=new JLabel("PASSWORD"); 
-
-    JLabel confirmPasswordLabel=new JLabel("CONFIRM PASSWORD"); 
-
-    JLabel addressLabel=new JLabel("ADDRESS"); 
-
-    JLabel emailLabel=new JLabel("EMAIL"); 
-
-    JLabel AdhaarLabel= new JLabel("AADHAAR"); 
-
-    JTextField nameTextField=new JTextField(); 
-
-    JTextField Farmerid=new JTextField(); 
-
-    JTextField Aadhaartext= new JTextField(); 
-
-    JComboBox<String> genderComboBox=new JComboBox<>(gender); 
-
-    JTextField fatherTextField=new JTextField(); 
-
-    JPasswordField passwordField=new JPasswordField(); 
-
-    JPasswordField confirmPasswordField=new JPasswordField(); 
-
-    JTextField AddressTextField=new JTextField(); 
-
-    JTextField emailTextField=new JTextField(); 
-
-    JLabel dob = new JLabel("DOB");  
-
-    JComboBox<String> date= new JComboBox<>(dates);  
-
-    JComboBox<String> month= new JComboBox<>(months);  
-
-    JComboBox<String> year= new JComboBox<>(years);  
-
-    JButton registerButton=new JButton("REGISTER"); 
-
-    JButton resetButton=new JButton("RESET"); 
-
-     
-
-     
-
- 
-
- 
-
- 
-
-    public RegistrationForm() 
-
-    { 
-
-        createWindow(); 
-
-        setLocationAndSize(); 
-
-        addComponentsToFrame(); 
-
-        actionEvent(); 
-
-    } 
-
-    public void createWindow() 
-
-    { 
-
-        frame=new JFrame(); 
-
-        frame.setTitle("Registration"); 
-
-        frame.setBounds(100,100,600,600); 
-
-        frame.getContentPane().setBackground(Color.blue); 
-
-        frame.getContentPane().setLayout(null); 
-
-        frame.setVisible(true); 
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-
-        frame.setResizable(false); 
-
-    } 
-
-    public void setLocationAndSize() 
-
-    { 
-
-        nameLabel.setBounds(20,20,140,70); 
-
-        genderLabel.setBounds(20,70,80,70); 
-
-        passwordLabel.setBounds(20,170,100,70); 
-
-        confirmPasswordLabel.setBounds(20,220,140,70); 
-
-        addressLabel.setBounds(20,270,100,70); 
-
-        emailLabel.setBounds(20,320,100,70); 
-
-        nameTextField.setBounds(180,43,165,23); 
-
-        genderComboBox.setBounds(180,93,165,23); 
-
-        dob.setBounds(20,120,40,70); 
-
-        date.setBounds(180, 143, 60, 23); 
-
-        month.setBounds(250, 143, 60, 23); 
-
-        year.setBounds(320, 143, 60, 23); 
-
-        Aadhaartext.setBounds(180,143,165,23); 
-
-        passwordField.setBounds(180,193,165,23); 
-
-        confirmPasswordField.setBounds(180,243,165,23); 
-
-        AddressTextField.setBounds(180,293,165,23); 
-
-        emailTextField.setBounds(180,343,165,23); 
-
-        registerButton.setBounds(70,400,100,35); 
-
-        resetButton.setBounds(220,400,100,35); 
-
-    } 
-
-    public void addComponentsToFrame() 
-
-    { 
-
-        frame.add(nameLabel); 
-
-        frame.add(genderLabel); 
-
-        frame.add(AdhaarLabel); 
-
-        frame.add(dob); 
-
-        frame.add(date); 
-
-        frame.add(month); 
-
-        frame.add(year); 
-
-        frame.add(passwordLabel); 
-
-        frame.add(confirmPasswordLabel); 
-
-        frame.add(addressLabel); 
-
-        frame.add(emailLabel); 
-
-        frame.add(nameTextField); 
-
-        frame.add(genderComboBox); 
-
-        frame.add(passwordField); 
-
-        frame.add(confirmPasswordField); 
-
-        frame.add(AddressTextField); 
-
-        frame.add(emailTextField); 
-
-        frame.add(registerButton); 
-
-        frame.add(resetButton); 
-
-    } 
-
-    public void actionEvent() 
-
-    { 
-
-        registerButton.addActionListener(this); 
-
-        resetButton.addActionListener(this); 
-
-    } 
-
- 
-
- 
-
-    @Override 
-
-    public void actionPerformed(ActionEvent e) { 
-
-        if(e.getSource()==registerButton) 
-
-        { 
-
-            try { 
-
-                //Creating Connection Object 
-
-                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/annam?useSSL=false","root","root"); 
-
-                //Prepared Statement 
-
-                PreparedStatement Pstatement=connection.prepareStatement("insert into FarmerDetails values(?,?,?,?,?,?,?)"); 
-
-                //Specifying the values of it's parameter 
-
-                Pstatement.setString(1,nameTextField.getText()); 
-
-                Pstatement.setString(2,genderComboBox.getSelectedItem().toString()); 
-
-                Pstatement.setString(3,fatherTextField.getText()); 
-
-                Pstatement.setString(4,passwordField.getText()); 
-
-                Pstatement.setString(5,confirmPasswordField.getText()); 
-
-                Pstatement.setString(6,AddressTextField.getText()); 
-
-                Pstatement.setString(7,emailTextField.getText()); 
-
-                //Checking for the Password match 
-
-                if(passwordField.getText().equalsIgnoreCase(confirmPasswordField.getText())) 
-
-                { 
-
-                    //Executing query 
-
-                    Pstatement.executeUpdate(); 
-
-                    JOptionPane.showMessageDialog(null,"Data Registered Successfully"); 
-
-                } 
-
-                else 
-
-                { 
-
-                    JOptionPane.showMessageDialog(null,"password did not match"); 
-
-                } 
-
- 
-
-            } catch (SQLException e1) { 
-
-                e1.printStackTrace(); 
-
-            } 
-
- 
-
- 
-
-        } 
-
-        if(e.getSource()==resetButton) 
-
-        { 
-
-            //Clearing Fields 
-
-            nameTextField.setText(""); 
-
-            genderComboBox.setSelectedItem("Male"); 
-
-            fatherTextField.setText(""); 
-
-            passwordField.setText(""); 
-
-            confirmPasswordField.setText(""); 
-
-            AddressTextField.setText(""); 
-
-            emailTextField.setText(""); 
-
-        } 
-
- 
-
-    } 
-
-} 
+public class RegistrationForm extends JFrame implements ActionListener { 
+	
+	private JPanel contentPane;
+	private JTextField IDTextField;
+	private JTextField nameTextField;
+	JButton Register;
+	JComboBox genderComboBox;
+	JTextArea passwordField;
+	JTextArea confirmPasswordField;
+	JTextArea AddressTextField;
+	JTextArea emailTextField;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					RegistrationForm frame = new RegistrationForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public RegistrationForm() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 620, 459);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		
+		JLabel FName = new JLabel("");
+		FName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblNewLabel = new JLabel("FarmerID");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblNewLabel_1 = new JLabel("Password");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		IDTextField = new JTextField();
+		IDTextField.setColumns(10);
+		
+		Register = new JButton("Register");
+		Register.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		Register.addActionListener(this);
+		
+		JLabel lblNewLabel_2 = new JLabel("Name");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		genderComboBox = new JComboBox();
+		genderComboBox.setModel(new DefaultComboBoxModel(new String[] {"Male ", "Female"}));
+		genderComboBox.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		
+		JLabel lblNewLabel_3 = new JLabel("Gender");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		nameTextField = new JTextField();
+		nameTextField.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("Confirm Password");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_5 = new JLabel("Address");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblNewLabel_6 = new JLabel("Email");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		passwordField = new JTextArea();
+		
+		confirmPasswordField = new JTextArea();
+		
+		AddressTextField = new JTextArea();
+		
+		emailTextField = new JTextArea();
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(222)
+					.addComponent(Register)
+					.addContainerGap(299, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(127)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.UNRELATED))
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+										.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel_6, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+									.addGap(76))))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGap(79)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
+							.addGap(44)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(IDTextField, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+							.addComponent(nameTextField)
+							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(AddressTextField, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(confirmPasswordField, Alignment.LEADING)
+							.addComponent(passwordField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
+					.addGap(264))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(44)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
+						.addComponent(IDTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(27)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_2)
+						.addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(27)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_3))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(confirmPasswordField, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_4))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(AddressTextField, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_5))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_6)
+						.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, 13, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addComponent(Register)
+					.addGap(25))
+		);
+		contentPane.setLayout(gl_contentPane);
+	}
+	public void actionPerformed(java.awt.event.ActionEvent e) {
+        if(e.getSource()==Register)
+        {
+        	System.out.println("poda");
+            try {
+               
+                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/annam","root","root");
+                
+                PreparedStatement Pstatement=connection.prepareStatement("insert into Farmer values(?,?,?,?,?,?,?)");
+                
+                Pstatement.setString(1,IDTextField.getText());
+                Pstatement.setString(2,nameTextField.getText());
+                Pstatement.setString(3,genderComboBox.getSelectedItem().toString());
+                Pstatement.setString(4,passwordField.getText());
+                Pstatement.setString(5,confirmPasswordField.getText());
+                Pstatement.setString(6,AddressTextField.getText());
+                Pstatement.setString(7,emailTextField.getText());
+                //Checking for the Password match
+                if(passwordField.getText().equals(confirmPasswordField.getText()))
+                {
+                    //Executing query
+                    Pstatement.executeUpdate();
+                    JOptionPane.showMessageDialog(null,"Data Registered Successfully");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,"password did not match");
+                }
+
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
+
+        }
+	}
+}
