@@ -101,16 +101,15 @@ public class AnalyserForm extends JFrame implements ActionListener{
 	}
 	@Override
    public void actionPerformed(ActionEvent e){
+		DataAnalyst da = new DataAnalyst();
 	        if(e.getSource()==submit) {
 	        	String s=textField.getText();
 	        	int n=Integer.parseInt(s);
-	        	DataAnalyst da = new DataAnalyst();
 	        	da.getResult(n);
 	        }
 	        if(e.getSource()==update) {
 	        	String s=textField.getText();
 	        	int n=Integer.parseInt(s);
-	        	DataAnalyst da = new DataAnalyst();
 	        	da.updateDatabase(n);
 	        }
 	        if(e.getSource()==view) {

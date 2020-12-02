@@ -28,7 +28,7 @@ abstract class Test {
 		machineStat = new File(tempDirectory.getAbsolutePath()+File.separator+"MachineStat.log");
 		System.out.println(tempDirectory.getAbsolutePath());
 		try{
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/annam?useSSL=false", "root", "root");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/annam?allowPublicKeyRetrieval=true&useSSL=false", "root", "root");
 			if(machineStat.createNewFile()) {
 				System.out.println("log created");
 			}else {

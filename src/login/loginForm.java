@@ -10,7 +10,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import net.miginfocom.swing.MigLayout;
-
+import soil_suggestion.AnalyserForm;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -37,13 +37,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
 
 public class loginForm extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField UserText;
 	private JPasswordField passwordField;
-	JButton Login;
+	private JButton Login;
+	private JButton reset;
+	private JLabel errorLable;
 	/**
 	 * Launch the application.
 	 */
@@ -73,7 +76,7 @@ public class loginForm extends JFrame implements ActionListener{
 		JLabel FName = new JLabel("");
 		FName.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-		JLabel lblNewLabel = new JLabel("Username");
+		JLabel lblNewLabel = new JLabel("User ID");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JLabel lblNewLabel_1 = new JLabel("Password");
@@ -88,6 +91,13 @@ public class loginForm extends JFrame implements ActionListener{
 		Login.addActionListener((ActionListener) this);
 		
 		Login.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		reset = new JButton("Reset");
+		reset.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		reset.addActionListener(this);
+		
+		errorLable = new JLabel("");
+		errorLable.setForeground(Color.RED);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -96,15 +106,20 @@ public class loginForm extends JFrame implements ActionListener{
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(UserText)
 						.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
-					.addContainerGap(143, Short.MAX_VALUE))
+					.addContainerGap(215, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(204)
-					.addComponent(Login)
-					.addContainerGap(317, Short.MAX_VALUE))
+					.addGap(230)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(errorLable, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(reset, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+							.addGap(41)
+							.addComponent(Login)))
+					.addContainerGap(169, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -119,8 +134,12 @@ public class loginForm extends JFrame implements ActionListener{
 							.addComponent(lblNewLabel)
 							.addGap(33)
 							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
-					.addGap(57)
-					.addComponent(Login)
+					.addGap(18)
+					.addComponent(errorLable)
+					.addGap(36)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(reset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(Login, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap(114, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
@@ -132,12 +151,21 @@ public class loginForm extends JFrame implements ActionListener{
         	String p=passwordField.getText();
         	if(loginCheck(u1,p)) {
         		System.out.println("Welcome");
+        		AnalyserForm o = new AnalyserForm();
+        		o.setVisible(true);
+        		dispose();        
+        		
         		
         }
         	else {
         		System.out.println("Error");
+        		errorLable.setText("userID or Password is wrong");
         	}
 	}
+        else if(e.getSource()==reset) {
+        	UserText.setText("");
+        	passwordField.setText("");
+        }
 	}
 	   boolean loginCheck(int id,String password){
 	        try {
