@@ -19,6 +19,8 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import com.mysql.cj.protocol.Resultset;
 
+import login.loginForm;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -30,6 +32,7 @@ public class AnalyserForm extends JFrame implements ActionListener{
 	private JButton submit;
 	private JButton update;
 	private JButton view;
+	private JButton back;
 
 	/**
 	 * Launch the application.
@@ -66,10 +69,12 @@ public class AnalyserForm extends JFrame implements ActionListener{
 		update = new JButton("UPDATE");
 		
 		view = new JButton("VIEW");
+		
+		back = new JButton("back");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(25)
 					.addComponent(view, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
 					.addGap(47)
@@ -77,8 +82,10 @@ public class AnalyserForm extends JFrame implements ActionListener{
 					.addGap(39)
 					.addComponent(update, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
 					.addGap(23))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(86, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(back)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 277, GroupLayout.PREFERRED_SIZE)
 					.addGap(63))
 		);
@@ -86,7 +93,9 @@ public class AnalyserForm extends JFrame implements ActionListener{
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(21)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(back))
 					.addGap(48)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(update, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
@@ -97,6 +106,7 @@ public class AnalyserForm extends JFrame implements ActionListener{
 		contentPane.setLayout(gl_contentPane);
 		update.addActionListener((ActionListener) this);
 		view.addActionListener(this);
+		back.addActionListener(this);
 		
 	}
 	@Override
@@ -115,6 +125,11 @@ public class AnalyserForm extends JFrame implements ActionListener{
 	        if(e.getSource()==view) {
 	        	TestMachine tm = new TestMachine();
 	        	tm.getSubmission();
+	        }
+	        if(e.getSource()==back) {
+	        	loginForm login = new loginForm();
+	        	login.setVisible(true);
+	        	dispose();
 	        }
    	}
 }

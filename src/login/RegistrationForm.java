@@ -39,6 +39,7 @@ public class RegistrationForm extends JFrame implements ActionListener {
 	private JTextField IDTextField;
 	private JTextField nameTextField;
 	JButton Register;
+	JButton back;
 	JComboBox genderComboBox;
 	JTextArea passwordField;
 	JTextArea confirmPasswordField;
@@ -115,15 +116,18 @@ public class RegistrationForm extends JFrame implements ActionListener {
 		AddressTextField = new JTextArea();
 		
 		emailTextField = new JTextArea();
+		
+		back = new JButton("back");
+		back.addActionListener(this);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(222)
 					.addComponent(Register)
-					.addContainerGap(299, Short.MAX_VALUE))
+					.addContainerGap(275, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(127)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -140,7 +144,7 @@ public class RegistrationForm extends JFrame implements ActionListener {
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(lblNewLabel_6, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 									.addGap(76))))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(79)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
@@ -148,22 +152,28 @@ public class RegistrationForm extends JFrame implements ActionListener {
 							.addGap(44)))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(IDTextField, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
 							.addComponent(nameTextField)
-							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createSequentialGroup()
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(AddressTextField, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(confirmPasswordField, Alignment.LEADING)
+							.addComponent(confirmPasswordField, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(passwordField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
 					.addGap(264))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(back)
+					.addContainerGap(501, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(44)
+					.addContainerGap()
+					.addComponent(back)
+					.addGap(13)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel)
 						.addComponent(IDTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -191,7 +201,7 @@ public class RegistrationForm extends JFrame implements ActionListener {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_6)
 						.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, 13, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
 					.addComponent(Register)
 					.addGap(25))
 		);
@@ -231,6 +241,11 @@ public class RegistrationForm extends JFrame implements ActionListener {
             }
 
 
+        }
+        else if(e.getSource()==back) {
+        	loginForm lf = new loginForm();
+        	lf.setVisible(true);
+        	dispose();
         }
 	}
 }
